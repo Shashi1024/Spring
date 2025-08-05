@@ -5,7 +5,7 @@
 ## Servlets
 - a Java Servlet is a Java class that extends the capabilities of a server. 
 - Servlets are primarily used to handle HTTP requests and generate HTTP responses. 
-- Servlets is a Java program that runs inside a Servlet Container
+- Servlet is a Java program that runs inside a Servlet Container
 
 ### Working (HTTP Request-Response Model)
 
@@ -37,7 +37,7 @@
 
 - **Request Handling (`service()` method)**
   - For every client request, the container calls the `service(ServletRequest req, ServletResponse res)` method.
-  - for HTTP Servlets, the `HttpServlet` class overrides `service()` to dispatch the request to specific `doGet()`, `doPost()`, `doPut()`, `doDelete()` (`service()` method simply called these methods rather than processing the request by itself)
+  - for HTTP Servlets, the `HttpServlet` class overrides `service()` to dispatch the request to specific `doGet()`, `doPost()`, `doPut()`, `doDelete()`. (`service()` method simply calls these methods rather than processing the request by itself)
 
 - **Destruction (`destroy()` method)**
   - when the Servlet container is shutting down, container calls the `destroy()` method(for cleanup tasks) exactly once for the Servlet instance.
