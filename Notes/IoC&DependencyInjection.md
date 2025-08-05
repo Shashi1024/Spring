@@ -8,7 +8,7 @@
 ### Inversion of Control - The Principle
 - *Concept* --> IoC is a design principle where the control of object creation and lifecycle management is inverted or transferred from our application code to a framework (in this case, Spring).
   - traditionally, we our code is responsible to create the objects it needs.
-  - we don't create the objects; we describe how they should be created and configured, and the framework (Spring's IoC container) takes care of the actual instantiation, configuration, and assembly of our objects. 
+  - here we don't create the objects; we describe how they should be created and configured, and the framework (Spring's IoC container) takes care of the actual instantiation, configuration, and assembly of our objects. 
   - The framework calls our code, rather than our code calling the framework.
 
   -  The "**inversion**" refers to the shift in responsibility. Instead of your code actively "**pulling**" dependencies, the framework "**pushes**" them into your code.
