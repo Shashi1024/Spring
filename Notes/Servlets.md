@@ -1,4 +1,4 @@
-> *Topics: Servlets, ...*\
+> *Topics: Servlets, . . .*\
 > *Link to Codes --> [Codes](../Codes/)*
 
 
@@ -49,7 +49,7 @@
 - provides the interfaces and classes necessary to write Servlets.
 
 - **`javax.servlet.Servlet` Interface**
-  - all Servlets must implement (contains fundamental lifecycle methods like, `init()`, `service()`, `destroy()`) 
+  - all Servlets must implement this interface (contains fundamental lifecycle methods like, `init()`, `service()`, `destroy()`) 
 
 - **`javax.servlet.GenericServlet` Abstract Class** (implements `Servlet` interface)
   - Provides default implementations for `init()`, `destroy()`, `getServletConfig()`, and `getServletInfo()`.

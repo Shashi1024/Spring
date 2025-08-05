@@ -1,5 +1,4 @@
-> *Topics: Inverison of Control, Dependency Injection, ...*\
-> *Link to Codes --> [Codes](../Codes/)*
+> *Topics: Inverison of Control, Dependency Injection, . . .*\
 
 
 ## Inversion of Control & Dependency Injection
