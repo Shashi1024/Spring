@@ -19,6 +19,8 @@
   - Bean Scopes
   - Bean Lifecycle
 
+- Servlets
+
 - Aspect Oriented Programming
 
 - Spring Modules
