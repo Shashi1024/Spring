@@ -3,6 +3,12 @@
   - patterns like Singleton, Factory, Proxy, Observer, Strategy, Template Method
   - SOLID principles (Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion)
 
+```
+> ⬆️Completed
+
+> ⬇️Incomplete
+```
+
 - Inversion of Control
   - IoC Container
   - BeanFactory
