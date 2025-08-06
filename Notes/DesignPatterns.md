@@ -1,4 +1,4 @@
-> *Topics: Design Patterns, . . .*\
+> *Topics --> Design Patterns, . . .*\
 > *Link to Codes --> [Codes](../Codes/DesignPatterns/)*
 
 ## Design Patterns

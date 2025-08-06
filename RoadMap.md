@@ -45,5 +45,23 @@
 - SPeL
 - Javax, Jakarta
 - Authentication vs. Authorization
-- Registration
 - custom annotations
+
+
+
+
+## Can
+- Registration
+
+
+
+
+
+# Todo
+- init Repo
+- get Ops
+- get Requirements
+- post Req list
+- post deadlines
+- put Reqs
+- push *

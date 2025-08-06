@@ -1,5 +1,5 @@
-> *Topics: Design Patterns, . . .*\
-> *Link to Codes --> [Codes](../Codes/DesignPatterns/)*
+> *Topics --> Annotations, . . .*\
+> *Link to Codes --> [Codes](../Codes/)*
 
 
 ## Annotations
@@ -19,6 +19,11 @@
   - **Aspect-Oriented Programming** --> Marks methods for transactional behavior, security, logging, etc.
   - **Web Development** --> Maps web requests to controller methods, handles request parameters, etc.
   - **Data Access** --> Defines repositories and handles database interactions.
+
+
+### Registration
+- registration is the process of telling the underlying environment (like a web server) or the Spring container about your custom classes (listeners, filters, interceptors, or even your own Spring beans)
+- It's how you "plug in" your custom logic so that the framework knows to instantiate your class and invoke its methods at the appropriate times during the application's lifecycle or request processing.
 
 
 ### Types of Spring Annotations

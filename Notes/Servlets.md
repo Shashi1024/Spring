@@ -1,4 +1,4 @@
-> *Topics: Servlets, . . .*\
+> *Topics --> Servlets, . . .*\
 > *Link to Codes --> [Codes](../Codes/)*
 
 
@@ -108,3 +108,29 @@
   - When the `DispatcherServlet` is initialized, it creates its own `WebApplicationContext` (a specialized `ApplicationContext` for web applications).
   - This `WebApplicationContext` is where the Spring MVC controllers, services, repositories, and other web-specific beans are defined and managed.
   - This means the Spring beans are managed by Spring's IoC container, but the entire web application still starts from a standard Servlet.
+
+---
+
+### Listeners
+- Java classes that react to specific events occurring within an application's lifecycle.
+- *Registration*
+  - **Spring Listeners** --> You register them by implementing the `ApplicationListener` interface or by annotating a method with `@EventListener`. Spring automatically detects and registers these.
+  - **Servlet Listeners** --> For web applications, you register them in `web.xml` using `<listener>` tags, or in modern Servlet 3.0+ environments, you can use the `@WebListener` annotation on your listener class or register them programmatically.
+
+---
+
+### Filters
+- Components that intercept requests and responses in a web application. They form a "chain of responsibility."
+- They can inspect, modify, or even block incoming web requests before they reach the target servlet (like Spring's `DispatcherServlet`), and modify outgoing responses after the servlet has processed them but before they're sent back to the client.
+- They're good for cross-cutting concerns like authentication, logging, or data compression that apply to many requests.
+- *Registration*
+  - You register them in `web.xml` using `<filter>` and `<filter-mapping>` tags, or in Servlet 3.0+ environments, using the `@WebFilter` annotation on your filter class or programmatic registration. Spring also provides `FilterRegistrationBean` for registering Servlet filters within a Spring context.
+
+---
+
+### Interceptors
+- Spring-specific components that allow you to intercept requests within the Spring MVC framework.
+- based on The Spring MVC Framework (specifically the `HandlerInterceptor` interface).
+- They provide more granular control than filters. Interceptors operate after the `DispatcherServlet` has received the request but before the actual controller method executes, and also after the controller method but before the view is rendered, and after the response is fully committed. 
+- *Registration*
+  - You register them in a Spring `@Configuration` class by implementing the `WebMvcConfigurer` interface and overriding its `addInterceptors()` method.
