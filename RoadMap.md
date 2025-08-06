@@ -45,3 +45,5 @@
 - SPeL
 - Javax, Jakarta
 - Authentication vs. Authorization
+- Registration
+- custom annotations
