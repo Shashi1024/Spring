@@ -25,6 +25,11 @@
 - registration is the process of telling the underlying environment (like a web server) or the Spring container about your custom classes (listeners, filters, interceptors, or even your own Spring beans)
 - It's how you "plug in" your custom logic so that the framework knows to instantiate your class and invoke its methods at the appropriate times during the application's lifecycle or request processing.
 
+### Directives
+- what are directives?
+- Annotation is an example of directives
+- a way to describe instructions or commands given to the framework.
+
 
 ### Types of Spring Annotations
 - usually categorized by their purpose
@@ -51,6 +56,12 @@
 
 - `@Configuration`
   - Marks a class that declares one or more `@Bean` methods.
+
+- `@Bean`
+  - Annotates a method within a `@Configuration` class. The method's return value will be registered as a bean in the `ApplicationContext`. The bean's name defaults to the method name.
+
+- `@ComponentScan`
+  - Used to configure component scanning. Spring will look for classes annotated with stereotypes (`@Component`, `@Service`, etc.) in the specified packages and register them as beans.
 
 
 #### Dependency Injection Annotations
@@ -98,3 +109,30 @@
 - **Annotation Detection** --> For each class, Spring uses reflection to check if it's annotated with `@Component` or one of its specializations (`@Service`, `@Repository`, `@Controller`, `@Configuration`).
 - **Bean Definition** --> If an annotation is found, Spring creates a bean definition for that class, effectively telling the IoC container, "Hey, I need to manage an instance of this class."
 - **Dependency Resolution (`@Autowired`)** --> When Spring creates an instance of a bean, it then looks for `@Autowired` annotations on its constructors, fields, or setters. Using reflection, it identifies the required type and then searches its application context for a matching bean to inject.
+
+
+
+### `BeanPostProcessor`
+- it is a special bean that can intercept the creation of other beans and perform additional logic on them, both before and after they are initialized. 
+- Spring's core functionality is built upon several internal `BeanPostProcessor` implementations.
+
+- *Annotation Processing*
+  - **Component Scanning** --> When we use `@ComponentScan`, Spring uses an internal `BeanPostProcessor` to scan the classpath for classes with stereotype annotations (`@Component`, `@Service`, etc.). It then registers a `BeanDefinition` for each of them.
+
+  - **Dependency Injection** --> When a bean is instantiated, another internal `BeanPostProcessor` called `AutowiredAnnotationBeanPostProcessor` looks at all of its fields, constructors, and setters. It finds those annotated with `@Autowired` and, using reflection, injects the correct bean instances into them. This is how the "wiring" happens.
+
+  - **Lifecycle Hooks** --> A `BeanPostProcessor` named `CommonAnnotationBeanPostProcessor` looks for methods annotated with `@PostConstruct` and `@PreDestroy`. It executes the `@PostConstruct` methods after a bean's properties have been set, and it executes the `@PreDestroy` methods just before the bean is destroyed.
+
+
+
+### Custom Annotations
+- **Define the Annotation** --> Use the `@interface` keyword to define a new annotation.
+
+- **Add Meta-Annotations** --> Use meta-annotations to define how your annotation will be used:
+  - `@Retention(RetentionPolicy.RUNTIME)` --> This is crucial. It tells the JVM to make the annotation available at runtime so that Spring's processors can read it.
+  - `@Target({ElementType.TYPE, ElementType.METHOD, ...})` --> Specifies where your annotation can be applied (e.g., on a class, method, field).
+  - `@Documented` --> (Optional) Indicates that the annotation should be included in Javadoc.
+
+- **Add Attributes** (Optional) --> You can define attributes in your annotation, similar to an interface's methods. These can be used to pass metadata to your processor.
+
+- To make custom annotation do something, we need to write a `BeanPostProcessor` that looks for it and performs a specific action. This is a direct application of the Proxy design pattern.

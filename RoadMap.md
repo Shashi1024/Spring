@@ -37,22 +37,23 @@
 ---
 
 ## Stack
-- stateless
-- statefull
-- interceptor
-- listeners
-- filters
 - SPeL
 - Javax, Jakarta
-- Authentication vs. Authorization
 - custom annotations
+
 
 
 
 
 ## Can
 - Registration
-
+- Authentication vs. Authorization
+- interceptor
+- listeners
+- filters
+- stateless
+- statefull
+- What are directives?
 
 
 
