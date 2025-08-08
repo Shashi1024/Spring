@@ -136,3 +136,43 @@
 - **Add Attributes** (Optional) --> You can define attributes in your annotation, similar to an interface's methods. These can be used to pass metadata to your processor.
 
 - To make custom annotation do something, we need to write a `BeanPostProcessor` that looks for it and performs a specific action. This is a direct application of the Proxy design pattern.
+
+
+
+
+
+### REST API Annotations
+
+- `@RestController` 
+  - it is the foundation annotation for the web-layer.
+  - it is a combination of two other annotations (`@Controller`, `@ResponseBody`)
+    - `@Controller` --> Marks a class as a Spring MVC controller.
+    - `@ResponseBody` --> Tells Spring that the return value of a method should be bound directly to the web response body. Spring then automatically converts the return object into a format like JSON or XML.
+  - `@RestController` is a combination of both of these functionalities.
+  - it signals that the class's primary job is to handle incoming requests and return data, typically for RESTful services, rather than returning a view (like an HTML page).
+
+
+- `@RequestMapping`, `@GetMapping`, and `@PostMapping`
+  - used to map incoming HTTP requests to specific methods within the controller.
+
+  - `@RequestMapping`(most general and flexible of 3). 
+    - It can be used at the class level to define a base URL path for all methods within the controller, or at the method level to map a specific request.
+    - **Class-level usage** --> All methods in a controller will have their paths prefixed by the value in `@RequestMapping`.
+    - **Method-level usage** --> It can be configured with attributes to specify the HTTP method `(method=RequestMethod.GET)`, URL path `(value="/vehicles")`, and more.
+  
+  - `@GetMapping` --> A specialized, more concise version of `@RequestMapping(method=RequestMethod.GET)` for handling HTTP GET requests.
+
+  - `@PostMapping` --> A specialized annotation for handling HTTP POST requests.
+
+
+- `@PathVariable`
+  - When a piece of data is part of the URL path itself, we use `@PathVariable` to extract it.
+  - It binds a variable from the URI template to a method parameter.
+  - *Syntax* --> we define a placeholder in the URL path using curly braces `({variableName})` and then use `@PathVariable` with the same name in the signature.
+
+
+- `@RequestBody`
+  - When a client sends data to API, that data is typically in the HTTP request body as a JSON or XML payload. 
+  - The `@RequestBody` annotation is used to automatically convert this payload into a Java object.
+  - It binds the body of the incoming HTTP request to a method parameter.
+  - Spring uses an `HttpMessageConverter` (like the Jackson library) to deserialize the JSON from the request body into an instance of your specified Java class.

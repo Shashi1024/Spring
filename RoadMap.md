@@ -29,7 +29,7 @@
 
 - Spring Annotations
 
-- 
+- JPA
 
 
 
@@ -39,7 +39,7 @@
 ## Stack
 - SPeL
 - Javax, Jakarta
-- custom annotations
+
 
 
 
@@ -54,6 +54,7 @@
 - stateless
 - statefull
 - What are directives?
+- custom annotations
 
 
 
