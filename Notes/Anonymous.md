@@ -19,3 +19,31 @@
 
 
 ---
+
+### RESTful APIs
+- **REST (Representational State Transfer)** is an architectural style for designing networked applications. 
+- It's not a protocol or a standard but a set of guiding principles for building services that are scalable and loosely coupled.
+
+- *Principles*
+  - **Resources**
+    - Everyting is a resource
+    - a resource is an object that can be identified by a URI (uniform resource identifier)
+    - Ex. `http://api.copart.com/vehicles/`, `http://api.copart.com/vehicles/12345`
+
+  - **Uniform Interface**
+    - relies on a uniform, consistent interface for interacting with resources, defined by standard HTTP methods,
+      - `GET` --> Read
+      - `POST` --> Create
+      - `PUT` --> Update
+      - `DELETE` --> Delete
+
+  - **Statelessness**
+    - sever must not store any client state between requests
+    - each request from the client must contain all the information required to process it.
+
+  - **Client-Server**
+    - client and server are distinct and separate.
+
+---
+
+### URI vs. URL

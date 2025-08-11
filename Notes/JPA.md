@@ -38,6 +38,7 @@
   - `deleteById(ID id)`
   - . . . 
 
+---
 
 ### Derived Query Methods
 - allows us to define custom queries simply by writing a method signature. Spring parses the method name and generates the correct SQL or JPQL query.
@@ -47,6 +48,7 @@
   - This is followed by `By`.
   - After `By`, names of the entity properties to filter by.
 
+---
 
 ### Fine-Grained Entity Mapping
 - used to define how the java objects are mapped to database
@@ -69,7 +71,7 @@
     @Column(name = "vehicle_id") // Maps the 'id' field to a column named 'vehicle_id'
     private Long id;
     ```
-
+---
 
 ### Entity Relationships
 - JPA provides annotations to define these relationships directly in the entity classes, abstracting away the foreign keys.
@@ -92,7 +94,7 @@
     - `@JoinColumn` --> specifies the foreign key column.
     - `mappedBy` --> This tells JPA that the relationship is managed by the location field in the Vehicle entity.
 
-
+---
 
 ### Transaction Management (`@Transactional`)
 - ensures data integrity
@@ -105,6 +107,7 @@
     - If the method completes successfully, Spring commits the transaction, making all changes permanent.
     - If the method throws an exception, Spring rolls back the transaction, undoing all changes and ensuring data remains consistent.
 
+---
 
 ### Custom Queries with `@Query`
 - `@Query` is used where the usage of drived queries is different.
@@ -124,7 +127,7 @@
 - `@Param` --> This annotation maps the method parameter to the named parameter (:location) in the query
 
 
-
+---
 
 ### Paging and Sorting
 - Spring Data JPA provides built-in support for paging and sorting.
@@ -134,3 +137,29 @@
 - `Pageable` --> An object that contains information about the page number, page size, and sorting directives. can pass this to repository methods to retrieve data in chunks.
 
 - `Page<T>` --> The return type for paged queries. It contains the list of entities for the current page, along with metadata like the total number of pages and the total number of records.
+
+
+
+---
+
+### `JpaRepository`
+- provides methods like `save()`, `findAll()`, `findById()`
+- it is achieved using **Dynamic Proxies**
+
+- *Proxy Mechanism*
+  - **Interface Detection** --> when the app starts, `ApplicationContext` scans the code for interfaces that extend `JpaRepository`
+  - **Runtime Implementation** --> for each of those interfaces, Spring creates a proxy class at runtime. this proxy class is the concrete implmentation of the repository interface.
+  - **Method Delegation** --> when a method is invoked on the repository, it is not being directly invoked on the interface, rather it is being invoked on the proxy object.
+  - **Template Execution** --> proxy object contains the necessary logic to delegate the call to an underlying `JpaTemplate`.
+
+---
+
+### Derived Query Methods
+- also called as query derivation
+- *Steps*
+  - **Method name parsing** --> The proxy object examines the method's name. It looks for keywords like `find`, `By`, `And`, `Or`, `LessThan`, etc.
+  - **Query Generation** --> Based on these keywords, Spring dynamically constructs an equivalent JPQL (Java Persistence Query Language) query
+    - For `findByLocationAndStatus(String location, String status)`, Spring translates this into a query similar to `SELECT v FROM Vehicle v WHERE v.location = ?1 AND v.status = ?2`.
+  - **Parameter binding** --> The method parameters (`location` and `status`) are then automatically bound to the placeholders (`?1` and `?2`) in the generated query
+  - **Query Execution**
+

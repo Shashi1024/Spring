@@ -15,10 +15,12 @@
 
 - Servlets
 
-```
-> ⬆️Completed
+- Spring Annotations
 
-> ⬇️Incomplete
+```
+> ⬆️ Completed
+
+> ⬇️ Incomplete
 ```
 
 - Aspect Oriented Programming
@@ -27,7 +29,7 @@
   - Spring Context
   - Spring Expression Language (SpEL)
 
-- Spring Annotations
+
 
 - JPA
 
@@ -39,6 +41,11 @@
 ## Stack
 - SPeL
 - Javax, Jakarta
+- Mapper
+- Builder
+- Procedure
+- Sproc
+- code to get list of all classes with a particular annotation
 
 
 
