@@ -17,6 +17,12 @@
 
 - Spring Annotations
 
+- Spring Modules
+  - Spring Context
+  - Spring Expression Language (SpEL)
+
+- JPA
+
 ```
 > ⬆️ Completed
 
@@ -24,14 +30,6 @@
 ```
 
 - Aspect Oriented Programming
-
-- Spring Modules
-  - Spring Context
-  - Spring Expression Language (SpEL)
-
-
-
-- JPA
 
 
 
