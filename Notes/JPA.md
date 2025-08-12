@@ -4,7 +4,7 @@
 
 ## Java Persistence API
 - JPA is the official Java standard for **Object-Relational Mapping (ORM)**
-- it's a specification—a set of rules and guidelines for how to manage relational data in a Java application. (like a contract or a blueprint)
+- it's a specification - a set of rules and guidelines for how to manage relational data in a Java application. (like a contract or a blueprint)
 - it is a framework for mapping Java objects to database tables. It defines annotations and an API for performing database operations like saving, updating, and querying.
 - JPA provides a layer of abstraction between Java objects and the database's SQL
 - JPA implementation handles the conversion to and from SQL behind the scenes.
@@ -47,6 +47,14 @@
   - It starts with `find`, `read`, `get`, `query`, or `stream`.
   - This is followed by `By`.
   - After `By`, names of the entity properties to filter by.
+
+- also called as query derivation
+- *Steps*
+  - **Method name parsing** --> The proxy object examines the method's name. It looks for keywords like `find`, `By`, `And`, `Or`, `LessThan`, etc.
+  - **Query Generation** --> Based on these keywords, Spring dynamically constructs an equivalent JPQL (Java Persistence Query Language) query
+    - For `findByLocationAndStatus(String location, String status)`, Spring translates this into a query similar to `SELECT v FROM Vehicle v WHERE v.location = ?1 AND v.status = ?2`.
+  - **Parameter binding** --> The method parameters (`location` and `status`) are then automatically bound to the placeholders (`?1` and `?2`) in the generated query
+  - **Query Execution**
 
 ---
 
@@ -154,12 +162,34 @@
 
 ---
 
-### Derived Query Methods
-- also called as query derivation
+### Repository Call workflow
 - *Steps*
-  - **Method name parsing** --> The proxy object examines the method's name. It looks for keywords like `find`, `By`, `And`, `Or`, `LessThan`, etc.
-  - **Query Generation** --> Based on these keywords, Spring dynamically constructs an equivalent JPQL (Java Persistence Query Language) query
-    - For `findByLocationAndStatus(String location, String status)`, Spring translates this into a query similar to `SELECT v FROM Vehicle v WHERE v.location = ?1 AND v.status = ?2`.
-  - **Parameter binding** --> The method parameters (`location` and `status`) are then automatically bound to the placeholders (`?1` and `?2`) in the generated query
-  - **Query Execution**
-
+  - **Repository Method Call**
+  - **Spring Data Proxy (Dynamic Implementation)**
+    - when the application starts, `ApplicationContext` scans for interfaces that extend `JpaRepository`, for each one it creates a dynamic proxy at runtime.
+    - it intercepts every method call and delegates it to the correct internal logic.
+  - **`EntityManager` (JPA API)**
+    - the proxy's first action is to delegate the call to `EntityManager`.
+    - it is the core JPA interface for interacting with the persistence context.
+    - it is the central hub for all database operations defined by the JPA Specification.
+  - **Hibernate Session (ORM Engine)**
+    - `EntityManager` is the JPA Specification, **Hibernate** is the most common implementation of that specification.
+    - when we call a method on `EnitiyManager`, its actually Hiberate's underlying `Session` object that does the work.
+    - `Session`
+      - it is non sharable, single-threaded onject that handles all communication and caching for a single transaction or operation.
+    - the `EntityManager` is essentially a thin wrapper around the Hibernate.
+  - **SQL Generation via Dialect**
+    - This is the job of ORM(Object relational Mapper), it translates a high-level request into a low level sql query.
+    - it uses a database dialect for this. the dialect is a configuration that tells hibernate which flavour of sql to use. (this makes a spring app database agnostic)
+  - **JDBC `PreparedStatement`**
+    - hibernate hands the generated raw sql over to JDBC `PreparedStatement`, it is a pre-compiled sql statement that can be executed repeatedly with different parameters. (reduces sql injection attacks)
+  - **Database Execution (Rows fetched/modified)**
+    - the `PreparedStatement` is sent to the database server for execution.
+  - **Entities Hydrated or DB Updated**
+    - *for `SELECT` queries*, Hibernated recieves the JDBC result ser, it reads the data from the columns and uses it to create new java objects. (this process is called **Hydration**)
+    - these new objects are added to the persistence context
+    - *for `INSERT`/`UPDATE`/`DELETE` queries*, the result is just the confirmation, then the state of entities in the persistence context is then updated accordingly.
+  - **Persistence Context (1st level cahe & dirty checking)**
+    - its a rutime cache taht holds all the entities currently managed by a specific `EntityManager`.
+      - **1st-Level Cache** --> when we fetch an entity by its primary key, JPA first checks the persistence context, for the data (simple caching rather than going to database server everytime)
+      - **Dirty Checking** --> when we retrieve an entity, it is attached to the persistence context. if we then modify any of its properties, JPA automatically detects this change when the transaction is about to commit.(no need to explicitly call the `save()`/`update()`, it is automatically handled updated by JPA)
