@@ -76,6 +76,14 @@ Spring Security is integrated with Servlet API to intercept every web request. T
 
 ---
 
+### User Management (`UserDetailsService`)
+- it is a service interface we implement to load a user's details from the application's data store (database). It returns a `UserDetails` object.
+- a custom user service must implement `UserDetailsService` and override a single method `loadUserByUserName(String username)`
+- `UserDetails` is the standard data model used by Spring Security to represent a user. a custom user model must either implement this interface or be converted to a `UserDetails` object.
+
+
+---
+
 ### Practical Components
 - `PasswordEncoder` --> it is an interface used to securely hash and store the passwords. most common implementation is `BCryptPasswordEncoder` (`PasswordEncoder` bean must be provided in the configuration)
 
