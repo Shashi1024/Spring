@@ -81,6 +81,7 @@ Spring Security is integrated with Servlet API to intercept every web request. T
 - a custom user service must implement `UserDetailsService` and override a single method `loadUserByUserName(String username)`
 - `UserDetails` is the standard data model used by Spring Security to represent a user. a custom user model must either implement this interface or be converted to a `UserDetails` object.
 
+- `@AuthenticationPrincipal` annotation is used to inject the currently authenticated user's `UserDetails` object directly into a method parameter.
 
 ---
 
