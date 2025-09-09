@@ -1,7 +1,7 @@
 ## Contents
 
 > **Design Patterns**\
-> *Topics : Dseign Patterns in the context of Spring*\
+> *Topics : Design Patterns in the context of Spring*\
 > *Link --> [Notes](Notes/DesignPatterns.md) | [Code](Codes/DesignPatterns/)*
 
 ---
